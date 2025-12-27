@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Markdown format for Docusaurus documentation site + Docusaurus (v3.x), pnpm (package manager), Node.js (18+), GitHub Pages (deployment) (001-ros2-nervous-system)
+- Git repository for source control, GitHub Pages for static hosting (001-ros2-nervous-system)
+
+## Recent Changes
+- 001-ros2-nervous-system: Added Markdown format for Docusaurus documentation site + Docusaurus (v3.x), pnpm (package manager), Node.js (18+), GitHub Pages (deployment)

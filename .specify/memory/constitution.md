@@ -1,55 +1,60 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- SYNC IMPACT REPORT
+Version change: N/A -> 1.0.0
+Modified principles: N/A (new constitution)
+Added sections: All sections added based on project requirements
+Removed sections: N/A
+Templates requiring updates: N/A
+Follow-up TODOs: None
+-->
+# AI-Native, Spec-Driven Software Development Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Specification Supremacy
+All outputs must be derived from explicit, written specifications. No undocumented assumptions, no emergent behavior. Accuracy Through Primary Sources: All technical, architectural, and conceptual claims must be traceable to verifiable sources (official docs, peer-reviewed papers, or authoritative standards).
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### AI as an Implementer, Not an Author
+The AI follows specs; it does not invent scope, features, or interpretations beyond them. This ensures reproducibility and deterministic behavior in all AI-assisted development processes.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Clarity for a Technical Audience
+Content must target readers with a computer science / software engineering background familiar with modern backend, AI, and web systems. All communication must be precise and technically accurate.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Reproducibility & Determinism
+Every architectural decision, code path, and AI behavior must be reproducible from the specs alone. This ensures that all development processes can be consistently replicated and verified.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Accuracy Through Primary Sources
+All technical, architectural, and conceptual claims must be traceable to verifiable sources (official docs, peer-reviewed papers, or authoritative standards). Citation format: APA. Minimum 50% authoritative technical sources including peer-reviewed papers and official platform documentation.
 
-### [PRINCIPLE_6_NAME]
+### Zero Hallucination Constraint
+AI behavioral constraint: The AI must refuse to answer if the answer is not present in the indexed sources, cite exact document sections used, and surface uncertainty explicitly when information is incomplete. The AI must never fill gaps creatively, merge external training knowledge with RAG context, or override spec-defined limitations.
 
+## System Architecture Constraints
 
-[PRINCIPLE__DESCRIPTION]
+### Book Platform
+Static site generator: Docusaurus. Deployment target: GitHub Pages. Versioned content. Source-controlled markdown only.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### RAG Chatbot Architecture
+Backend: FastAPI. OpenAI Agents / ChatKit SDKs. Neon Serverless Postgres (metadata, sessions, citations). Qdrant Cloud (Free Tier) for embeddings.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### RAG Capabilities
+Answer questions strictly from indexed book content. "Selected-text-only" answer mode: Responses must be grounded only in user-highlighted text. Mandatory citation return for every answer. Forbidden behaviors: No hallucinated content, No external knowledge injection, No speculative extrapolation beyond indexed text.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Content & Book Standards
+All factual claims must be explicitly verifiable. Source mix: Minimum 50% authoritative technical sources, Peer-reviewed papers, Official platform documentation (OpenAI, FastAPI, Neon, Qdrant, Docusaurus). Writing clarity: Technical prose, No marketing language, No speculative claims.
+
+### Spec-Driven Development Standards
+Each chapter must have: Purpose, Defined inputs, Defined outputs, Explicit non-goals. No chapter may reference functionality not defined in a spec.
+
+### System Architecture Constraints
+All architectural decisions must align with the specified technology stack and deployment targets. Every component must be spec-compliant and verifiable against the defined requirements.
+
+### Verification & Quality Gates
+Source verification: Every non-trivial claim must map to at least one cited source. Plagiarism tolerance: 0% tolerance — content must be original, paraphrased, and cited. Fact-checking review: All chapters and chatbot answers must pass: Claim-to-source traceability, Architectural correctness, Spec compliance. RAG validation tests: Query answered correctly from book content, Query refused when content is absent, Selected-text constraint enforced correctly.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+The constitution supersedes all other practices and development guidelines. All development must verify compliance with these principles. Amendments require documentation, approval, and migration plan if applicable. All PRs/reviews must verify constitution compliance. Complexity must be justified against these principles. Use specification documents for runtime development guidance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-26 | **Last Amended**: 2025-12-26
