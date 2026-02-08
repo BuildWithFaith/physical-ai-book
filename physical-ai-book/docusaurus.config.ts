@@ -22,7 +22,7 @@ const config: Config = {
 
   customFields: {
     // Put your custom environment variables here
-    backendUrl: process.env.REACT_APP_BACKEND_URL || 'http://localhost:8002',
+    backendUrl: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000',
   },
 
   // GitHub pages deployment config.

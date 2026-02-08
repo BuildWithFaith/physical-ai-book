@@ -32,8 +32,7 @@ const ChatWidget = () => {
     try {
       // In production, this should be the deployed backend URL
       // For development, we're assuming the backend is running on localhost:8002
-      // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8002';
-      const BACKEND_URL = siteConfig.customFields?.backendUrl || 'http://localhost:8002';
+      const BACKEND_URL = siteConfig.customFields?.backendUrl || 'http://localhost:3000';
 
       const response = await fetch(`${BACKEND_URL}/chat`, {
         method: 'POST',
