@@ -68,6 +68,37 @@ const config: Config = {
     ],
   ],
 
+  themes: [
+    // ... Your other themes.
+  ],
+
+  plugins: [
+    // Add proxy configuration for development
+    async function myPlugin(context, options) {
+      return {
+        name: 'custom-webpack-config',
+        configureWebpack(config, isServer, utils) {
+          if (!isServer) {
+            // Add proxy configuration for development
+            config.devServer = {
+              ...config.devServer,
+              proxy: {
+                '/api': {
+                  target: 'http://localhost:8000',
+                  changeOrigin: true,
+                  pathRewrite: {
+                    '^/api': '', // Remove /api prefix when forwarding to backend
+                  },
+                },
+              },
+            };
+          }
+          return config;
+        },
+      };
+    },
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
