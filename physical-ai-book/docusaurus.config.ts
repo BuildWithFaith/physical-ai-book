@@ -20,6 +20,11 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
+  customFields: {
+    // Put your custom environment variables here
+    backendUrl: process.env.REACT_APP_BACKEND_URL || 'http://localhost:8002',
+  },
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'facebook', // Usually your GitHub org/user name.
@@ -86,7 +91,7 @@ const config: Config = {
               ...config.devServer,
               proxy: {
                 '/api': {
-                  target: 'http://localhost:8000',
+                  target: 'http://localhost:8002',
                   changeOrigin: true,
                   pathRewrite: {
                     '^/api': '', // Remove /api prefix when forwarding to backend

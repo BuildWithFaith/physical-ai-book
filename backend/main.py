@@ -15,7 +15,7 @@ app = FastAPI(title="Physical AI RAG System", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # In production, replace with specific origins
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -43,9 +43,8 @@ async def chat_endpoint(request: ChatRequest):
     """Chat endpoint that processes user queries using RAG"""
     try:
         # Process the query through the RAG system
-        result = await asyncio.get_event_loop().run_in_executor(
-            None, query_rag_system, request.query, request.top_k
-        )
+        # Process the query through the RAG system
+        result = await query_rag_system(request.query, request.top_k)
 
         return ChatResponse(
             answer=result["answer"],
@@ -56,4 +55,4 @@ async def chat_endpoint(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8002)

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import './ChatWidget.css';
 
 const ChatWidget = () => {
@@ -9,6 +10,7 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const { colorMode } = useColorMode();
+  const { siteConfig } = useDocusaurusContext();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -29,8 +31,9 @@ const ChatWidget = () => {
 
     try {
       // In production, this should be the deployed backend URL
-      // For development, we're assuming the backend is running on localhost:8000
-      const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
+      // For development, we're assuming the backend is running on localhost:8002
+      // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8002';
+      const BACKEND_URL = siteConfig.customFields?.backendUrl || 'http://localhost:8002';
 
       const response = await fetch(`${BACKEND_URL}/chat`, {
         method: 'POST',

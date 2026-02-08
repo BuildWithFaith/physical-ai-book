@@ -55,7 +55,7 @@ uv pip install -r requirements.txt
 ```bash
 cd backend
 source .venv/bin/activate
-python -c "from main import app; import uvicorn; uvicorn.run(app, host='0.0.0.0', port=8000)"
+uvicorn main:app --host 0.0.0.0 --port 8002 --reload
 ```
 
 #### Populate Vector Database

@@ -1,4 +1,5 @@
 import os
+import asyncio
 from typing import List, Dict
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
@@ -62,26 +63,27 @@ If the answer is not present in the context, respond with:
 
     return agent
 
-def get_answer_from_agent(query: str, context: List[Dict]):
+async def get_answer_from_agent(query: str, context: List[Dict]):
     """Get answer from the agent using the provided context"""
     # Build context string
-    context_str = "\n\n".join([chunk["text"] for chunk in context])
+    context_str = "\\n\\n".join([chunk["text"] for chunk in context])
 
     # Create a message with the context and query
-    full_prompt = f"""Context:\n{context_str}\n\nQuestion: {query}\n\nPlease answer based on the provided context."""
+    full_prompt = f"""Context:\\n{context_str}\\n\\nQuestion: {query}\\n\\nPlease answer based on the provided context."""
 
     # Create the agent
     agent = create_physical_ai_agent()
 
     # Run the agent with the prompt
-    result = Runner.run_sync(agent, full_prompt)
+    result = await Runner.run(agent, full_prompt)
 
     return result.final_output
 
-def query_rag_system(query: str, top_k: int = 5) -> Dict:
+async def query_rag_system(query: str, top_k: int = 5) -> Dict:
     """Complete RAG query pipeline"""
     # Retrieve relevant context
-    context = retrieve_context(query, top_k=top_k)
+    # Running sync function in thread pool to avoid blocking
+    context = await asyncio.to_thread(retrieve_context, query, top_k=top_k)
 
     if not context:
         return {
@@ -90,7 +92,7 @@ def query_rag_system(query: str, top_k: int = 5) -> Dict:
         }
 
     # Get answer from agent
-    answer = get_answer_from_agent(query, context)
+    answer = await get_answer_from_agent(query, context)
 
     # Extract source information
     sources = [{"module": chunk["module"], "chapter": chunk["chapter"]} for chunk in context]

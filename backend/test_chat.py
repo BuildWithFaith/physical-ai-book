@@ -9,7 +9,7 @@ def test_chat_query():
     query = "What is the nervous system in ROS2?"
     print(f"Testing query: '{query}'")
 
-    result = query_rag_system(query, top_k=3)
+    result = asyncio.run(query_rag_system(query, top_k=3))
 
     print(f"Answer: {result['answer']}")
     print(f"Sources: {result['sources']}")
