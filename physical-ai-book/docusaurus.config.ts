@@ -73,7 +73,9 @@ const config: Config = {
   ],
 
   plugins: [
+    // Temporarily removed custom plugin that may interfere with build
     // Add proxy configuration for development
+    /*
     async function myPlugin(context, options) {
       return {
         name: 'custom-webpack-config',
@@ -97,6 +99,7 @@ const config: Config = {
         },
       };
     },
+    */
   ],
 
   themeConfig: {
