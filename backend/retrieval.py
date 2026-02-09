@@ -3,14 +3,37 @@ import asyncio
 from typing import List, Dict
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-from openai import OpenAI
-from agents import Agent, Runner
+from openai import OpenAI, AsyncOpenAI
+from agents import Agent, Runner, OpenAIChatCompletionsModel, RunConfig
 
 # Load environment variables
 load_dotenv()
 
 # Initialize OpenAI client
 client = OpenAI()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable not set")
+
+# Setup Gemini client and model
+external_provider = AsyncOpenAI(
+    api_key=GEMINI_API_KEY,
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai",
+)
+
+model = OpenAIChatCompletionsModel(
+    openai_client=external_provider,
+    model="gemini-3-flash-preview",
+)
+
+# Create run configuration
+run_config = RunConfig(
+    model=model,
+    model_provider=external_provider,
+    tracing_disabled=True
+)
 
 def retrieve_context(query: str, top_k: int = 5, collection_name: str = "physical_ai_rag") -> List[Dict]:
     """Retrieve relevant context from Qdrant based on the query"""
@@ -58,7 +81,6 @@ If the answer is not present in the context, respond with:
     agent = Agent(
         name="Physical AI Tutor",
         instructions=instructions,
-        model="gpt-4o",  # Using a capable model for understanding context
     )
 
     return agent
@@ -75,7 +97,7 @@ async def get_answer_from_agent(query: str, context: List[Dict]):
     agent = create_physical_ai_agent()
 
     # Run the agent with the prompt
-    result = await Runner.run(agent, full_prompt)
+    result = await Runner.run(agent, full_prompt, run_config=run_config)
 
     return result.final_output
 
